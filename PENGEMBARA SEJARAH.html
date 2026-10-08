@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misi Kemerdekaan 1957 - Sejarah T4 Bab 9</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg-grad: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-grad);
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        #app-container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Top Header Navigation */
+        .top-bar {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #000;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .score-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #fde047;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #10b981, #06b6d4);
+            transition: width 0.4s ease;
+        }
+
+        /* Screen Sections */
+        .screen {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card Styles */
+        .content-card {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 12px;
+        }
+
+        .highlight-title {
+            color: #4f46e5;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        /* Forms & Buttons */
+        .input-group {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            max-width: 350px;
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 2px solid var(--primary);
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4f46e5, #3b82f6);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Interactive Grid / Choice Cards */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        .option-card {
+            background: #f1f5f9;
+            border: 2px solid #cbd5e1;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            color: #1e293b;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            background: #e0e7ff;
+            transform: scale(1.02);
+        }
+
+        .option-card.correct {
+            background: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46 !important;
+        }
+
+        .option-card.wrong {
+            background: #fee2e2 !important;
+            border-color: var(--danger) !important;
+            color: #991b1b !important;
+        }
+
+        /* Sorting Game Specifics */
+        .drop-zones {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .drop-zone {
+            background: #f8fafc;
+            border: 2px dashed #94a3b8;
+            border-radius: 12px;
+            padding: 15px;
+            min-height: 180px;
+        }
+
+        .drop-zone h4 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .draggable-item {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin: 8px 0;
+            cursor: grab;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-pool {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            min-height: 80px;
+        }
+
+        /* Audio & Feedback Banner */
+        .feedback-banner {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback-banner.success {
+            background: #d1fae5;
+            color: #065f46;
+            display: block;
+        }
+
+        .feedback-banner.error {
+            background: #fee2e2;
+            color: #991b1b;
+            display: block;
+        }
+
+        /* Image Display Box */
+        .graphic-box {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 16px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .graphic-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        /* Badges */
+        .badge-list {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge-item {
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #334155;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Quiz Step */
+        .quiz-option {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            color: #1e293b;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        /* Mind Map Visual */
+        .mindmap-node {
+            background: #e0e7ff;
+            border: 2px solid #6366f1;
+            color: #312e81;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="user-badge">
+            <div class="avatar-circle" id="user-avatar">?</div>
+            <div>
+                <div style="font-size: 0.8rem; color: #94a3b8;">Pengembara Sejarah</div>
+                <div id="user-display-name" style="font-weight: bold; font-size: 1.05rem;">Tetamu</div>
+            </div>
+        </div>
+        <div class="score-box">
+            ⭐ <span id="user-score">0</span> XP
+        </div>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+    </div>
+
+    <!-- SCREEN 0: LOGIN / NAMA MURID -->
+    <div class="screen active" id="screen-login">
+        <div class="content-card" style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 10px;">📜🇲🇾</div>
+            <h1 style="color: #4f46e5; margin-bottom: 5px;">Misi Rundingan Kemerdekaan 1957</h1>
+            <p style="color: #64748b; margin-bottom: 20px;">Sejarah Tingkatan 4 - Bab 9 (KSSM)</p>
+            
+            <div class="input-group">
+                <label for="student-name" style="display: block; margin-bottom: 8px; font-weight: bold; color: #334155;">Masukkan Nama Anda Untuk Mula:</label>
+                <input type="text" id="student-name" placeholder="Contoh: Ahmad / Siti" maxlength="25">
+            </div>
+
+            <button class="btn" onclick="startApp()">🚀 Mula Pengembaraan</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 1: SET INDUKSI (Aktiviti 1) -->
+    <div class="screen" id="screen-1">
+        <div class="content-card">
+            <span style="background: #e0e7ff; color: #4338ca; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 0.85rem;">STESEN 1: SET INDUKSI</span>
+            <h2 class="highlight-title" style="margin-top: 10px;">Kenali Rombongan Kemerdekaan 1956</h2>
+            
+            <div class="graphic-box">
+                <div style="font-size: 4rem;">🛳️ ✈️ 🇬🇧</div>
+                <h3 style="margin-top: 10px;">Perjalanan Rombongan Kemerdekaan ke London</h3>
+                <p style="font-size: 0.95rem; opacity: 0.9;">Tunku Abdul Rahman & rombongan naik kapal laut <i>M.S. Asia</i> dari Singapura ke Karachi, sebelum terbang ke London!</p>
+            </div>
+
+            <p style="font-weight: bold; color: #334155; margin-bottom: 12px;">Soalan Soal Jawab Induksi:</p>
+            <p style="margin-bottom: 15px; color: #475569;">Siapakah Ketuai Rombongan Kemerdekaan ini dan apakah tujuan utama mereka ke London?</p>
+
+            <div id="induksi-options">
+                <div class="option-card" onclick="checkInduksi(this, false)">A. Tun H.S. Lee - Untuk meminta pinjaman kewangan daripada British.</div>
+                <div class="option-card" style="margin-top: 10px;" onclick="checkInduksi(this, true)">B. Tunku Abdul Rahman - Untuk berunding mendapatkan kemerdekaan Tanah Melayu.</div>
+                <div class="option-card" style="margin-top: 10px;" onclick="checkInduksi(this, false)">C. Sir Donald MacGillivray - Untuk menandatangani perjanjian perniagaan.</div>
+            </div>
+
+            <div id="induksi-feedback" class="feedback-banner"></div>
+
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn" id="btn-next-1" style="display: none;" onclick="goToScreen(2)">Misi Seterusnya ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: WAKIL RUNDINGAN (Aktiviti 2 & 3 - Sorting Game) -->
+    <div class="screen" id="screen-2">
+        <div class="content-card">
+            <span style="background: #e0e7ff; color: #4338ca; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 0.85rem;">STESEN 2: WAKIL RUNDINGAN</span>
+            <h2 class="highlight-title" style="margin-top: 10px;">Asingkan Wakil Rombongan Kemerdekaan</h2>
+            <p style="color: #64748b; font-size: 0.95rem; text-align: center; margin-bottom: 15px;">Klik nama tokoh di bawah untuk memasukkannya ke dalam kumpulan yang betul!</p>
+
+            <!-- Unsorted Items -->
+            <div class="item-pool" id="item-pool">
+                <div style="font-size: 0.85rem; color: #64748b; margin-bottom: 8px;">Pilih Tokoh:</div>
+                <div class="draggable-item" onclick="assignRole(this, 'Dato\' Panglima Bukit Gantang', 'raja')">1. Dato' Panglima Bukit Gantang</div>
+                <div class="draggable-item" onclick="assignRole(this, 'Tunku Abdul Rahman', 'perikatan')">2. Tunku Abdul Rahman</div>
+                <div class="draggable-item" onclick="assignRole(this, 'Tun Abdul Razak', 'perikatan')">3. Tun Abdul Razak</div>
+                <div class="draggable-item" onclick="assignRole(this, 'Abdul Aziz Abdul Majid', 'raja')">4. Abdul Aziz Abdul Majid</div>
+                <div class="draggable-item" onclick="assignRole(this, 'Tun H.S. Lee', 'perikatan')">5. Tun H.S. Lee</div>
+                <div class="draggable-item" onclick="assignRole(this, 'Dato\' Nik Ahmad Kamil', 'raja')">6. Dato' Nik Ahmad Kamil</div>
+            </div>
+
+            <div class="drop-zones">
+                <div class="drop-zone" id="zone-raja">
+                    <h4>👑 Wakil Raja-Raja Melayu</h4>
+                    <div id="list-raja"></div>
+                </div>
+                <div class="drop-zone" id="zone-perikatan">
+                    <h4>🤝 Wakil Parti Perikatan</h4>
+                    <div id="list-perikatan"></div>
+                </div>
+            </div>
+
+            <div id="sorting-feedback" class="feedback-banner"></div>
+
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn" id="btn-next-2" style="display: none;" onclick="goToScreen(3)">Misi Seterusnya ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: HASIL RUNDINGAN & PERJANJIAN LONDON (Aktiviti 3 & Objektif 2) -->
+    <div class="screen" id="screen-3">
+        <div class="content-card">
+            <span style="background: #e0e7ff; color: #4338ca; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 0.85rem;">STESEN 3: HASIL RUNDINGAN</span>
+            <h2 class="highlight-title" style="margin-top: 10px;">Perjanjian London 1956</h2>
+            <p style="color: #64748b; text-align: center; margin-bottom: 15px;">Kenal pasti 2 Hasil Rundingan utama yang dicapai di London!</p>
+
+            <div class="grid-2">
+                <div class="option-card" onclick="selectHasil(this, true)" id="hasil-1">
+                    <div style="font-size: 2rem;">🗓️</div>
+                    <strong>Tarikh Kemerdekaan</strong>
+                    <p style="font-size: 0.85rem; font-weight: normal; margin-top: 5px;">Tarikh kemerdekaan ditetapkan pada 31 Ogos 1957.</p>
+                </div>
+                <div class="option-card" onclick="selectHasil(this, true)" id="hasil-2">
+                    <div style="font-size: 2rem;">🏛️</div>
+                    <strong>Suruhanjaya Perlembagaan</strong>
+                    <p style="font-size: 0.85rem; font-weight: normal; margin-top: 5px;">Membentuk Suruhanjaya Reid untuk merangka Perlembagaan.</p>
+                </div>
+                <div class="option-card" onclick="selectHasil(this, false)">
+                    <div style="font-size: 2rem;">👑</div>
+                    <strong>Pemerintahan Mutlak</strong>
+                    <p style="font-size: 0.85rem; font-weight: normal; margin-top: 5px;">Ratu England terus memerintah Tanah Melayu selamanya.</p>
+                </div>
+                <div class="option-card" onclick="selectHasil(this, false)">
+                    <div style="font-size: 2rem;">❌</div>
+                    <strong>Menteri British Retain</strong>
+                    <p style="font-size: 0.85rem; font-weight: normal; margin-top: 5px;">Jawatan Menteri Kewangan kekal dipegang oleh orang British.</p>
+                </div>
+            </div>
+
+            <div id="hasil-feedback" class="feedback-banner"></div>
+
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn" id="btn-next-3" style="display: none;" onclick="goToScreen(4)">Misi Seterusnya ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 4: PERMUAFAKATAN & KESTABILAN (Aktiviti 4 & K11.3.6) -->
+    <div class="screen" id="screen-4">
+        <div class="content-card">
+            <span style="background: #fef3c7; color: #b45309; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 0.85rem;">STESEN 4: K11.3.6 PERMUAFAKATAN</span>
+            <h2 class="highlight-title" style="margin-top: 10px;">Kepentingan Permuafakatan Untuk Kestabilan Negara</h2>
+            
+            <p style="color: #475569; margin-bottom: 15px; text-align: center;">Mengapakah amalan <b>permuafakatan (kerjasama & bertolak tambat)</b> penting dalam mencapai kemerdekaan dan mengekalkan kestabilan negara? Select 2 jawapan betul:</p>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="quiz-option" onclick="togglePermuafakatan(this, true, 1)">
+                    🤝 <b>1. Mewujudkan keharmonian dan perpaduan antara pelbagai kaum.</b>
+                </div>
+                <div class="quiz-option" onclick="togglePermuafakatan(this, true, 2)">
+                    🛡️ <b>2. Menjamin kestabilan politik dan elak perselisihan faham.</b>
+                </div>
+                <div class="quiz-option" onclick="togglePermuafakatan(this, false, 0)">
+                    ⚡ <b>3. Menimbulkan pertelingkahan dan rasa tidak puas hati.</b>
+                </div>
+            </div>
+
+            <div id="permuafakatan-feedback" class="feedback-banner"></div>
+
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn" id="btn-next-4" style="display: none;" onclick="goToScreen(5)">Ujian Ulang Kaji (5 Soalan) ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 5: ULANG KAJI 5 SOALAN INDIVIDU (Aktiviti 5) -->
+    <div class="screen" id="screen-5">
+        <div class="content-card">
+            <span style="background: #e0e7ff; color: #4338ca; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 0.85rem;">STESEN 5: ULANG KAJI INDIVIDU</span>
+            <h2 class="highlight-title" style="margin-top: 10px;" id="quiz-question-title">Soalan 1 daripada 5</h2>
+            
+            <p id="quiz-question-text" style="font-size: 1.1rem; font-weight: 600; color: #1e293b; margin: 15px 0; min-height: 50px;"></p>
+
+            <div id="quiz-options-container"></div>
+
+            <div id="quiz-feedback" class="feedback-banner"></div>
+
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn" id="btn-quiz-next" style="display: none;" onclick="nextQuizQuestion()">Soalan Seterusnya ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 6: CERTIFICATE / RESULTS -->
+    <div class="screen" id="screen-6">
+        <div class="content-card" style="text-align: center; background: linear-gradient(135deg, #ffffff, #f0fdf4);">
+            <div style="font-size: 4rem;">🏆</div>
+            <h1 style="color: #059669; margin-bottom: 5px;">TAHNIAH & SYABAS!</h1>
+            <p style="color: #475569; font-size: 1.1rem;">Anda Telah Berjaya Menyelesaikan Misi Bab 9!</p>
+
+            <div style="background: #ffffff; border: 3px double #059669; padding: 20px; border-radius: 16px; margin: 20px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h2 id="cert-name" style="color: #1e293b; text-decoration: underline;">Nama Murid</h2>
+                <p style="margin: 10px 0; color: #64748b;">Telah mencapai Tahap Penguasaan Sejarah Tingkatan 4:</p>
+                <div style="font-size: 1.8rem; font-weight: bold; color: #d97706; margin: 10px 0;" id="cert-tp">TAHAP PENGUASAAN (TP 3)</div>
+                <p style="font-size: 0.95rem; color: #334155;"><b>Jumlah Markah XP:</b> <span id="final-score" style="color: #4f46e5; font-weight: bold;">0</span> / 500 XP</p>
+            </div>
+
+            <div class="badge-list">
+                <div class="badge-item">🎖️ Pejuang Kemerdekaan</div>
+                <div class="badge-item">📜 Ahli Rombongan</div>
+                <div class="badge-item">🤝 Duta Permuafakatan</div>
+            </div>
+
+            <button class="btn" onclick="location.reload()">🔄 Main Semula</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // App State Variables
+    let studentName = "";
+    let score = 0;
+    let currentScreen = 0;
+
+    // Audio Context (Synthesized sound effects - no external files needed)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(type) {
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'correct') {
+            osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+            osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+            osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.4);
+        } else if (type === 'wrong') {
+            osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+            osc.frequency.setValueAtTime(180, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+    }
+
+    function addScore(points) {
+        score += points;
+        document.getElementById('user-score').innerText = score;
+    }
+
+    function updateProgressBar(percentage) {
+        document.getElementById('progress-bar').style.width = percentage + '%';
+    }
+
+    function startApp() {
+        const input = document.getElementById('student-name').value.trim();
+        if (!input) {
+            alert('Sila masukkan nama anda terlebih dahulu!');
+            return;
+        }
+        studentName = input;
+        document.getElementById('user-display-name').innerText = studentName;
+        document.getElementById('user-avatar').innerText = studentName.charAt(0).toUpperCase();
+        
+        goToScreen(1);
+    }
+
+    function goToScreen(screenNumber) {
+        currentScreen = screenNumber;
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(`screen-${screenNumber}`).classList.add('active');
+        
+        // Progress percentage calculation
+        const progress = (screenNumber / 6) * 100;
+        updateProgressBar(progress);
+
+        if (screenNumber === 5) {
+            loadQuizQuestion();
+        } else if (screenNumber === 6) {
+            renderCertificate();
+        }
+    }
+
+    /* Screen 1 Logic: Set Induksi */
+    let induksiAnswered = false;
+    function checkInduksi(element, isCorrect) {
+        if (induksiAnswered) return;
+        const feedback = document.getElementById('induksi-feedback');
+        
+        if (isCorrect) {
+            induksiAnswered = true;
+            element.classList.add('correct');
+            feedback.className = 'feedback-banner success';
+            feedback.innerText = '✅ TEPAT! Tunku Abdul Rahman mengetuai Rombongan Kemerdekaan ke London pada tahun 1956.';
+            playSound('correct');
+            addScore(100);
+            document.getElementById('btn-next-1').style.display = 'inline-block';
+        } else {
+            element.classList.add('wrong');
+            feedback.className = 'feedback-banner error';
+            feedback.innerText = '❌ Jawapan kurang tepat. Cuba lagi!';
+            playSound('wrong');
+        }
+    }
+
+    /* Screen 2 Logic: Sorting Game */
+    let sortedCount = 0;
+    function assignRole(element, name, type) {
+        const zoneRaja = document.getElementById('list-raja');
+        const zonePerikatan = document.getElementById('list-perikatan');
+        const feedback = document.getElementById('sorting-feedback');
+
+        element.remove();
+        const tag = document.createElement('div');
+        tag.className = 'draggable-item';
+        tag.innerText = name;
+
+        if (type === 'raja') {
+            zoneRaja.appendChild(tag);
+        } else {
+            zonePerikatan.appendChild(tag);
+        }
+
+        sortedCount++;
+        playSound('correct');
+
+        if (sortedCount === 6) {
+            addScore(100);
+            feedback.className = 'feedback-banner success';
+            feedback.innerText = '🎉 TAHNIAH! Anda berjaya mengasingkan 4 Wakil Raja-Raja Melayu dan 4 Wakil Perikatan!';
+            document.getElementById('btn-next-2').style.display = 'inline-block';
+        }
+    }
+
+    /* Screen 3 Logic: Hasil Rundingan */
+    let selectedHasilCount = 0;
+    function selectHasil(element, isCorrect) {
+        const feedback = document.getElementById('hasil-feedback');
+        if (element.classList.contains('correct') || element.classList.contains('wrong')) return;
+
+        if (isCorrect) {
+            element.classList.add('correct');
+            selectedHasilCount++;
+            playSound('correct');
+
+            if (selectedHasilCount === 2) {
+                addScore(100);
+                feedback.className = 'feedback-banner success';
+                feedback.innerText = '✅ SYABAS! Dua hasil utama rundingan ialah penetapan tarikh Kemerdekaan (31 Ogos 1957) dan pembentukan Suruhanjaya Reid!';
+                document.getElementById('btn-next-3').style.display = 'inline-block';
+            } else {
+                feedback.className = 'feedback-banner success';
+                feedback.innerText = '✅ Tepat! Pilih 1 lagi hasil rundingan yang betul.';
+            }
+        } else {
+            element.classList.add('wrong');
+            playSound('wrong');
+            feedback.className = 'feedback-banner error';
+            feedback.innerText = '❌ Pilihan ini bukan hasil Perjanjian London 1956.';
+        }
+    }
+
+    /* Screen 4 Logic: Permuafakatan */
+    let permuafakatanScore = 0;
+    function togglePermuafakatan(element, isCorrect, id) {
+        const feedback = document.getElementById('permuafakatan-feedback');
+        if (element.classList.contains('correct') || element.classList.contains('wrong')) return;
+
+        if (isCorrect) {
+            element.classList.add('correct');
+            permuafakatanScore++;
+            playSound('correct');
+
+            if (permuafakatanScore === 2) {
+                addScore(100);
+                feedback.className = 'feedback-banner success';
+                feedback.innerText = '🌟 BAGUS! Permuafakatan mewujudkan keharmonian dan kestabilan politik negara.';
+                document.getElementById('btn-next-4').style.display = 'inline-block';
+            } else {
+                feedback.className = 'feedback-banner success';
+                feedback.innerText = '✅ Tepat! Pilih 1 lagi kepentingan permuafakatan.';
+            }
+        } else {
+            element.classList.add('wrong');
+            playSound('wrong');
+            feedback.className = 'feedback-banner error';
+            feedback.innerText = '❌ Pernyataan ini tidak menunjukkan permuafakatan yang positif.';
+        }
+    }
+
+    /* Screen 5 Logic: Quiz Questions (Aktiviti 5) */
+    const quizData = [
+        {
+            q: "1. Siapakah Setiausaha Tanah Jajahan British yang mempengerusikan Rundingan Kemerdekaan di London?",
+            options: ["Lord Lennox-Boyd", "Sir Harold MacMichael", "Sir Gerald Templer", "Clement Attlee"],
+            correct: 0
+        },
+        {
+            q: "2. Di manakah Perjanjian Kemerdekaan Tanah Melayu 1956 ditandatangani?",
+            options: ["House of Commons", "Lancaster House, London", "Istana Negara", "Hotel Majestic"],
+            correct: 1
+        },
+        {
+            q: "3. Apakah nama Suruhanjaya Bebas yang ditugaskan merangka Perlembagaan Persekutuan Tanah Melayu?",
+            options: ["Suruhanjaya Cobbold", "Suruhanjaya Reid", "Suruhanjaya Woodhead", "Suruhanjaya Radcliffe"],
+            correct: 1
+        },
+        {
+            q: "4. Apakah tarikh rasmi kemerdekaan Persekutuan Tanah Melayu yang dipersetujui dalam rundingan?",
+            options: ["31 Ogos 1957", "16 September 1963", "1 Februari 1948", "31 Ogos 1955"],
+            correct: 0
+        },
+        {
+            q: "5. Apakah ikhtibar utama daripada kejayaan Rombongan Kemerdekaan 1956?",
+            options: ["Kekuatan tentera sahaja", "Permuafakatan dan perundingan bertolak ansur", "Penolakan kerjasama kaum", "Penggunaan kekerasan"],
+            correct: 1
+        }
+    ];
+
+    let currentQuizIdx = 0;
+    let quizAnswered = false;
+
+    function loadQuizQuestion() {
+        quizAnswered = false;
+        const q = quizData[currentQuizIdx];
+        document.getElementById('quiz-question-title').innerText = `Soalan ${currentQuizIdx + 1} daripada 5`;
+        document.getElementById('quiz-question-text').innerText = q.q;
+        
+        const container = document.getElementById('quiz-options-container');
+        container.innerHTML = '';
+        document.getElementById('quiz-feedback').style.display = 'none';
+        document.getElementById('btn-quiz-next').style.display = 'none';
+
+        q.options.forEach((opt, idx) => {
+            const div = document.createElement('div');
+            div.className = 'quiz-option';
+            div.innerText = opt;
+            div.onclick = () => checkQuizAnswer(div, idx);
+            container.appendChild(div);
+        });
+    }
+
+    function checkQuizAnswer(element, selectedIdx) {
+        if (quizAnswered) return;
+        quizAnswered = true;
+
+        const q = quizData[currentQuizIdx];
+        const feedback = document.getElementById('quiz-feedback');
+
+        if (selectedIdx === q.correct) {
+            element.classList.add('correct');
+            feedback.className = 'feedback-banner success';
+            feedback.innerText = '✅ Jawapan BETUL! (+20 XP)';
+            playSound('correct');
+            addScore(20);
+        } else {
+            element.classList.add('wrong');
+            feedback.className = 'feedback-banner error';
+            feedback.innerText = `❌ Jawapan kurang tepat. Jawapan betul: ${q.options[q.correct]}`;
+            playSound('wrong');
+        }
+
+        document.getElementById('btn-quiz-next').style.display = 'inline-block';
+    }
+
+    function nextQuizQuestion() {
+        currentQuizIdx++;
+        if (currentQuizIdx < quizData.length) {
+            loadQuizQuestion();
+        } else {
+            goToScreen(6);
+        }
+    }
+
+    /* Screen 6 Logic: Final Certificate */
+    function renderCertificate() {
+        document.getElementById('cert-name').innerText = studentName;
+        document.getElementById('final-score').innerText = score;
+
+        let tpText = "TP 1 (Sangat Terhad)";
+        if (score >= 400) {
+            tpText = "TAHAP PENGUASAAN 3 (SANGAT BAIK)";
+        } else if (score >= 250) {
+            tpText = "TAHAP PENGUASAAN 2 (BAIK)";
+        } else {
+            tpText = "TAHAP PENGUASAAN 1 (MEMUASKAN)";
+        }
+        document.getElementById('cert-tp').innerText = tpText;
+    }
+</script>
+</body>
+</html>
